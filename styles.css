@@ -1,0 +1,65 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Georgia", serif;
+  background-color: #f9f6f1;
+  color: #1a1a1a;
+  background-size: cover;
+}
+header {
+  padding: 4rem 2rem 2rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: 0.08rem;
+  font-weight: normal;
+}
+.subtitle {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #555;
+  margin-top: -1rem;
+}
+.logo {
+  width: 120px;
+  margin: 2rem auto 1rem;
+  display: block;
+}
+.content {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  line-height: 1.7;
+}
+.email {
+  margin-top: 2rem;
+  font-style: italic;
+  color: #666;
+}
+footer {
+  text-align: center;
+  margin-top: 5rem;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: #aaa;
+  position: relative;
+}
+.redacted {
+  background: #1a1a1a;
+  color: #1a1a1a;
+  border-radius: 2px;
+  padding: 0.1rem 0.2rem;
+}
+.speculum {
+  position: absolute;
+  right: -3rem;
+  top: 2rem;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  color: darkred;
+  transform: rotate(-4deg);
+  opacity: 0.7;
+}
