@@ -1,6 +1,7 @@
 // marginalia.js — Crux Archive Editions (Production)
+
 const marginalia = [
-    "(Stanton, 2025): That door should not have been there.",
+  "(Stanton, 2025): That door should not have been there.",
   "(Unverified): The mirror may have written this entry itself.",
   "(From an unknown hand): Don’t trust the figs.",
   "(Calvert): The original manuscript made no mention of him—until it did.",
@@ -40,6 +41,24 @@ function injectMarginalia() {
   margin.className = "marginalia-layer";
   document.body.appendChild(margin);
 
+  const count = 20 + Math.floor(Math.random() * 10); // 20–30 notes
+  for (let i = 0; i < count; i++) {
+    const text = marginalia[Math.floor(Math.random() * marginalia.length)];
+    const note = document.createElement("div");
+    note.className = "marginalia-note";
+    note.textContent = text;
+
+    // Visual randomization
+    note.style.top = `${Math.floor(Math.random() * 85) + 5}%`;
+    note.style.left = (i % 2 === 0) ? "-12rem" : "calc(100% + 1rem)";
+    note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+    note.style.position = "absolute";
+    note.style.zIndex = `${Math.floor(Math.random() * 3) + 8}`;
+
+    margin.appendChild(note);
+  }
+}
+
 function runWhenReady(fn) {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", fn);
@@ -48,33 +67,16 @@ function runWhenReady(fn) {
   }
 }
 
-const count = 20 + Math.floor(Math.random() * 10); // 20–30 notes
-for (let i = 0; i < count; i++) {
-  const text = marginalia[Math.floor(Math.random() * marginalia.length)];
-  const note = document.createElement("div");
-  note.className = "marginalia-note";
-  note.textContent = text;
-
-  // Positioning
-  note.style.top = `${Math.floor(Math.random() * 85) + 5}%`;
-  note.style.left = (i % 2 === 0) ? "-12rem" : "calc(100% + 1rem)";
-  note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
-
-  // 🧱 Critical: Ensure the notes float independently
-  note.style.position = "absolute";
-  note.style.zIndex = `${Math.floor(Math.random() * 3) + 8}`; // 8–10
-
-  margin.appendChild(note);
-}
-
+// Swap text content every 20 seconds
 setInterval(() => {
   const notes = document.querySelectorAll(".marginalia-note");
   notes.forEach(note => {
     const alt = marginalia[Math.floor(Math.random() * marginalia.length)];
     note.textContent = alt;
   });
-}, 20000); // every 20 seconds
+}, 20000);
 
+// Initial render and regeneration every 90 seconds
 runWhenReady(() => {
   injectMarginalia();
   setTimeout(() => {
