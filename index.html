@@ -6,6 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crux Archive Editions</title>
   <link rel="stylesheet" href="styles.css">
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggles = document.querySelectorAll(".dropdown-toggle");
+    toggles.forEach(toggle => {
+      toggle.addEventListener("click", e => {
+        const parent = toggle.closest(".dropdown");
+        parent.classList.toggle("open");
+        document.querySelectorAll(".dropdown").forEach(drop => {
+          if (drop !== parent) drop.classList.remove("open");
+        });
+        e.stopPropagation();
+      });
+    });
+
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".dropdown").forEach(drop => drop.classList.remove("open"));
+    });
+  });
+</script>
 </head>
 <body>
   <header>
