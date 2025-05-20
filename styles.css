@@ -199,12 +199,16 @@ nav.nav a:hover {
 }
 
 .marginalia-layer {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
   pointer-events: none;
+  z-index: 2;
+}
+
+.index-card {
+  position: relative;
   z-index: 10;
 }
 
