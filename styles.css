@@ -63,3 +63,19 @@ footer {
   transform: rotate(-4deg);
   opacity: 0.7;
 }
+
+nav.nav {
+  margin-top: 1rem;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9rem;
+}
+nav.nav a {
+  color: #5a3e36;
+  margin: 0 1rem;
+  text-decoration: none;
+  border-bottom: 1px dotted #5a3e36;
+}
+nav.nav a:hover {
+  text-decoration: underline;
+  border-bottom: 1px solid #5a3e36;
+}
