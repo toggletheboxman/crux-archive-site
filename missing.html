@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CAE-MISSING | Fragmented Appearances</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #e2e2e2;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      padding: 4rem 1rem;
+      background-image: radial-gradient(rgba(255,0,0,0.02), transparent 70%);
+      animation: flickerBg 6s infinite alternate;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #ff0033;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-style: italic;
+      color: #999;
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .portrait {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      border: 2px dashed #333;
+      box-shadow: 0 0 10px rgba(255,0,0,0.05);
+      filter: contrast(0.95) brightness(1.05);
+      animation: glitchImage 8s infinite alternate;
+    }
+
+    .caption {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #777;
+      margin-top: 1rem;
+    }
+
+    .glyph-drift {
+      position: fixed;
+      font-size: 3rem;
+      color: rgba(255, 0, 0, 0.07);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .ghost-tagline {
+      font-size: 1.1rem;
+      color: #ff0033;
+      font-family: monospace;
+      opacity: 0.05;
+      animation: breathe 6s ease-in-out infinite;
+      position: fixed;
+      bottom: 2rem;
+      width: 100%;
+      text-align: center;
+      z-index: 5;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #444;
+    }
+
+    @keyframes flickerBg {
+      0%, 100% { background-color: #0a0a0a; }
+      50% { background-color: #080808; }
+    }
+
+    @keyframes glitchImage {
+      0%   { filter: grayscale(0.1) brightness(1.05) contrast(0.95); transform: none; }
+      25%  { filter: grayscale(0.3) brightness(1.2); }
+      50%  { filter: sepia(0.2) hue-rotate(20deg); transform: translate(1px, -1px) scale(1.01); }
+      75%  { filter: blur(1px) brightness(1.15); }
+      100% { filter: none; }
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes shakeScreen {
+      0% { transform: translate(0); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, 0); }
+      100% { transform: translate(0); }
+    }
+
+    .shake {
+      animation: shakeScreen 0.2s infinite;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>[ Entry Missing ]</h1>
+  <div class="subtitle">Fragments recovered from corrupted metadata</div>
+
+  <div class="row">
+    <div>
+      <img src="../assets/images/stanton-luna-missing.png" alt="Stanton composite" class="portrait" />
+      <div class="caption">Presumed likeness: Stanton–Luna composite. Archive attribution uncertain.</div>
+    </div>
+    <div>
+      <img src="../assets/images/calvert-tiberius-missing.png" alt="Calvert composite" class="portrait" />
+      <div class="caption">Recovered visual: Calvert–Tiberius simulation. <em>Do not circulate.</em></div>
+    </div>
+  </div>
+
+  <div class="ghost-tagline">/?have you seen me}}{</div>
+
+  <footer>
+    <p>Page reconstructed from partial backups. Some sections remain unverified.</p>
+    <p><a href="../index.html" style="color:#888;">&larr; Return to Archive</a></p>
+  </footer>
+
+  <script>
+    // Glyph Drift
+    const glyphs = ["☬", "☢", "☠", "☤", "☯", "☸", "☦", "☡", "☍", "☖", "☒", "☽"];
+    function createGlyph() {
+      const glyph = document.createElement("div");
+      glyph.className = "glyph-drift";
+      glyph.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      glyph.style.top = Math.random() * window.innerHeight + "px";
+      glyph.style.left = Math.random() * window.innerWidth + "px";
+      glyph.style.fontSize = (2 + Math.random() * 3) + "rem";
+      glyph.style.animation = "breathe 5s ease-in-out infinite";
+      document.body.appendChild(glyph);
+      setTimeout(() => glyph.remove(), 6000);
+    }
+    setInterval(createGlyph, 5000);
+
+    // Cursor disturbance and HTML corruption
+    let idleTime = 0;
+    setInterval(() => {
+      idleTime++;
+      if (idleTime > 12) {
+        document.body.classList.add("shake");
+      }
+    }, 1000);
+    window.onmousemove = window.onkeypress = () => {
+      idleTime = 0;
+      document.body.classList.remove("shake");
+    };
+  </script>
+</body>
+</html>
