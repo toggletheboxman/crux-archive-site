@@ -144,3 +144,17 @@ nav.nav a:hover {
 .marginalia-note:hover {
   opacity: 1;
 }
+.entry-nav {
+  text-align: center;
+  margin-top: 1rem;
+  font-family: "Courier New", Courier, monospace;
+}
+.entry-nav a {
+  color: #5a3e36;
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-bottom: 1px dotted #5a3e36;
+}
+.entry-nav a:hover {
+  text-decoration: underline;
+}
