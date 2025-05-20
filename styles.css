@@ -79,3 +79,13 @@ nav.nav a:hover {
   text-decoration: underline;
   border-bottom: 1px solid #5a3e36;
 }
+
+.redacted {
+  background: #1a1a1a;
+  color: #1a1a1a;
+  padding: 0.1rem 0.3rem;
+  border-radius: 1px;
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 0.05rem;
+}
+
