@@ -118,7 +118,7 @@ nav.nav a:hover {
   font-family: "Courier New", Courier, monospace;
 }
 
-.dropdown span {
+.dropdown-toggle {
   cursor: pointer;
   color: #5a3e36;
   border-bottom: 1px dotted #5a3e36;
@@ -130,12 +130,18 @@ nav.nav a:hover {
   background-color: #fffdf8;
   border: 1px solid #ccc;
   padding: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   min-width: 160px;
   z-index: 100;
 }
 
+/* 👇 Hover support for desktop */
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* 👇 Toggle support for mobile */
+.dropdown.open .dropdown-content {
   display: block;
 }
 
