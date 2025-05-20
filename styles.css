@@ -151,54 +151,28 @@ nav.nav a:hover {
   text-decoration: underline;
 }
 
+/* === Animation Keyframes === */
+@keyframes drift-waver {
+  0%   { transform: translateY(0) rotate(-3deg); opacity: 0.75; }
+  50%  { transform: translateY(-12px) rotate(0deg); opacity: 0.85; }
+  100% { transform: translateY(0) rotate(3deg); opacity: 0.75; }
+}
+
+@keyframes ghost-text {
+  0%, 100% { opacity: 0.95; filter: blur(0); }
+  45%      { opacity: 0.55; filter: blur(1px); }
+  50%      { opacity: 0.85; filter: blur(0.5px); }
+}
+
+@keyframes glyph-glitch {
+  0%   { letter-spacing: 0.01em; }
+  25%  { letter-spacing: 0.05em; }
+  50%  { letter-spacing: 0.015em; }
+  75%  { letter-spacing: -0.01em; }
+  100% { letter-spacing: 0.01em; }
+}
+
 /* === Marginalia Notes === */
-.marginalia-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.index-card {
-  position: relative;
-  z-index: 5; /* Ensure content is above */
-}
-
-.marginalia-note {
-  position: absolute;
-  font-size: 0.75rem;
-  font-family: "Courier New", Courier, monospace;
-  color: #333;
-  background: #f9f6f1;
-  padding: 0.5rem;
-  width: 12rem;
-  max-width: 14rem;
-  white-space: normal;
-  word-wrap: break-word;
-  word-break: break-word;
-  line-height: 1.4;
-  opacity: 0.25; /* Subdued by default */
-  text-align: left;
-  pointer-events: auto;
-  z-index: 2;
-
-  animation: 
-    drift-waver 24s ease-in-out infinite,
-    ghost-text 7s ease-in-out infinite,
-    glyph-glitch 11s ease-in-out infinite;
-  
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.marginalia-note:hover {
-  opacity: 0.9;
-  transform: scale(1.03) rotate(-1deg);
-  z-index: 5;
-}
-
 .marginalia-layer {
   position: absolute;
   top: 0;
@@ -208,43 +182,25 @@ nav.nav a:hover {
   z-index: 2;
 }
 
-.index-card {
-  position: relative;
-  z-index: 10;
-}
+.marginalia-note {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75rem;
+  color: #333;
+  background: #f9f6f1;
+  padding: 0.5rem;
+  width: 12rem;
+  max-width: 14rem;
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.4;
+  text-align: left;
+  opacity: 0.8;
 
-/* === Animation Keyframes === */
-@keyframes drift-waver {
-  0% {
-    transform: translateY(0px) rotate(-2deg);
-    opacity: 0.75;
-  }
-  50% {
-    transform: translateY(-40px) rotate(2deg);
-    opacity: 0.9;
-  }
-  100% {
-    transform: translateY(0px) rotate(-2deg);
-    opacity: 0.75;
-  }
-}
-
-@keyframes ghost-text {
-  0%, 100% { opacity: 0.8; }
-  45% { opacity: 0.3; }
-  50% { opacity: 0.9; }
-  55% { opacity: 0.2; }
-}
-
-@keyframes glyph-glitch {
-  0%, 100% {
-    filter: none;
-    letter-spacing: 0;
-  }
-  50% {
-    filter: blur(0.7px);
-    letter-spacing: 0.05rem;
-  }
+  animation: 
+    drift-waver 24s ease-in-out infinite,
+    ghost-text 7s ease-in-out infinite,
+    glyph-glitch 11s ease-in-out infinite;
 }
 
 
