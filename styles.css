@@ -95,6 +95,43 @@ nav.nav a:hover {
 .entry-nav a:hover {
   text-decoration: underline;
 }
+.dropdown {
+  display: inline-block;
+  position: relative;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.dropdown span {
+  cursor: pointer;
+  color: #5a3e36;
+  border-bottom: 1px dotted #5a3e36;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fffdf8;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 160px;
+  z-index: 100;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  display: block;
+  margin: 0.2rem 0;
+  text-decoration: none;
+  color: #5a3e36;
+  font-size: 0.85rem;
+}
+.dropdown-content a:hover {
+  text-decoration: underline;
+}
 .marginalia-note {
   max-width: 10rem;
   overflow-wrap: break-word;
