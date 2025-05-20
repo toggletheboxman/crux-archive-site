@@ -34,10 +34,9 @@ const marginalia = [
 ];
 
 function injectMarginalia() {
-  const container = document.querySelector(".index-card") || document.querySelector(".content");
   console.log("Injecting marginalia...");
+  const container = document.querySelector(".index-card") || document.querySelector(".content");
   console.log("Container found:", container);
-
   if (!container) return;
 
   const margin = document.createElement("div");
@@ -45,12 +44,15 @@ function injectMarginalia() {
   document.body.appendChild(margin);
 
   const count = 20 + Math.floor(Math.random() * 10); // 20–30 notes
+  console.log(`Injecting ${count} marginalia-note elements...`);
+
   for (let i = 0; i < count; i++) {
     const text = marginalia[Math.floor(Math.random() * marginalia.length)];
     const note = document.createElement("div");
     note.className = "marginalia-note";
     note.textContent = text;
 
+    // Random positioning
     note.style.top = `${Math.floor(Math.random() * 85) + 5}%`;
     note.style.left = (i % 2 === 0) ? "-12rem" : "calc(100% + 1rem)";
     note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
@@ -59,6 +61,8 @@ function injectMarginalia() {
 
     margin.appendChild(note);
   }
+
+  console.log("✅ Marginalia injection complete.");
 }
 
 window.addEventListener("load", () => {
