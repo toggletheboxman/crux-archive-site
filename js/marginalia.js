@@ -38,6 +38,14 @@ function runWhenReady(fn) {
   }
 }
 
+setInterval(() => {
+  const notes = document.querySelectorAll(".marginalia-note");
+  notes.forEach(note => {
+    const alt = marginalia[Math.floor(Math.random() * marginalia.length)];
+    note.textContent = alt;
+  });
+}, 20000); // every 20 seconds
+
 runWhenReady(() => {
   injectMarginalia();
   setTimeout(() => {
