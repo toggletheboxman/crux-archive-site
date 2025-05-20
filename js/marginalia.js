@@ -53,8 +53,8 @@ function injectMarginalia() {
     note.textContent = text;
 
     // Random positioning
-    note.style.top = `${Math.floor(Math.random() * 85) + 5}%`;
-    note.style.left = (i % 2 === 0) ? "-12rem" : "calc(100% + 1rem)";
+    note.style.top = `${Math.floor(Math.random() * 100)}vh`; // 0–100% of viewport height
+    note.style.left = `${Math.floor(Math.random() * 100)}vw`; // anywhere across screen
     note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
     note.style.position = "absolute";
     note.style.zIndex = `${Math.floor(Math.random() * 3) + 8}`;
