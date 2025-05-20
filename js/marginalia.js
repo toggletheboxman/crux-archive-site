@@ -43,7 +43,7 @@ function injectMarginalia() {
   margin.className = "marginalia-layer";
   document.body.appendChild(margin);
 
-  const count = 20 + Math.floor(Math.random() * 10); // 20–30 notes
+  const count = 60 + Math.floor(Math.random() * 40); // 60–100 notes
   console.log(`Injecting ${count} marginalia-note elements...`);
 
   for (let i = 0; i < count; i++) {
