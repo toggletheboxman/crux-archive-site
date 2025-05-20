@@ -5,6 +5,8 @@ body {
   background-color: #f9f6f1;
   color: #1a1a1a;
   background-size: cover;
+  position: relative;
+  overflow-x: visible;
 }
 
 header {
