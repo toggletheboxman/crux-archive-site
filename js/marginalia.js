@@ -41,22 +41,15 @@ function injectMarginalia() {
   margin.className = "marginalia-layer";
   document.body.appendChild(margin);
 
-  const count = 20 + Math.floor(Math.random() * 10); // 20–30 notes
-  for (let i = 0; i < count; i++) {
-    const text = marginalia[Math.floor(Math.random() * marginalia.length)];
+  marginalia.forEach((text, i) => {
     const note = document.createElement("div");
     note.className = "marginalia-note";
     note.textContent = text;
-
-    // Visual randomization
-    note.style.top = `${Math.floor(Math.random() * 85) + 5}%`;
-    note.style.left = (i % 2 === 0) ? "-12rem" : "calc(100% + 1rem)";
-    note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+    note.style.top = `${(i * 10) + 10}%`;
+    note.style.left = (i % 2 === 0) ? "1rem" : "calc(100% - 14rem)";
     note.style.position = "absolute";
-    note.style.zIndex = `${Math.floor(Math.random() * 3) + 8}`;
-
     margin.appendChild(note);
-  }
+  });
 }
 
 function runWhenReady(fn) {
@@ -67,16 +60,6 @@ function runWhenReady(fn) {
   }
 }
 
-// Swap text content every 20 seconds
-setInterval(() => {
-  const notes = document.querySelectorAll(".marginalia-note");
-  notes.forEach(note => {
-    const alt = marginalia[Math.floor(Math.random() * marginalia.length)];
-    note.textContent = alt;
-  });
-}, 20000);
-
-// Initial render and regeneration every 90 seconds
 runWhenReady(() => {
   injectMarginalia();
   setTimeout(() => {
