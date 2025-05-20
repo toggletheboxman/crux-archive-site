@@ -179,7 +179,10 @@ nav.nav a:hover {
   line-height: 1.4;
   opacity: 0.8;
   text-align: left;
-  animation: drift-waver 24s ease-in-out infinite;
+  animation: drift-waver 24s ease-in-out infinite,
+           ghost-text 7s ease-in-out infinite,
+           glyph-glitch 11s ease-in-out infinite;
+
 }
 
 /* === Animation Keyframes === */
@@ -195,6 +198,24 @@ nav.nav a:hover {
   100% {
     transform: translateY(0px) rotate(-2deg);
     opacity: 0.75;
+  }
+}
+
+@keyframes ghost-text {
+  0%, 100% { opacity: 0.8; }
+  45% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+  55% { opacity: 0.2; }
+}
+
+@keyframes glyph-glitch {
+  0%, 100% {
+    filter: none;
+    letter-spacing: 0;
+  }
+  50% {
+    filter: blur(0.7px);
+    letter-spacing: 0.05rem;
   }
 }
 
