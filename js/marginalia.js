@@ -54,9 +54,16 @@ for (let i = 0; i < count; i++) {
   const note = document.createElement("div");
   note.className = "marginalia-note";
   note.textContent = text;
+
+  // Positioning
   note.style.top = `${Math.floor(Math.random() * 85) + 5}%`;
   note.style.left = (i % 2 === 0) ? "-12rem" : "calc(100% + 1rem)";
   note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+
+  // 🧱 Critical: Ensure the notes float independently
+  note.style.position = "absolute";
+  note.style.zIndex = `${Math.floor(Math.random() * 3) + 8}`; // 8–10
+
   margin.appendChild(note);
 }
 
