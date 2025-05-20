@@ -150,7 +150,7 @@ nav.nav a:hover {
   text-decoration: underline;
 }
 
-/* Marginalia */
+/* === Marginalia Notes === */
 .marginalia-layer {
   position: absolute;
   top: 0;
@@ -160,43 +160,41 @@ nav.nav a:hover {
   z-index: 10;
 }
 
+.marginalia-note:hover {
+  opacity: 1;
+}
+
 .marginalia-note {
   position: absolute;
-  top: 0;
-  left: 0;
   font-size: 0.75rem;
   font-family: "Courier New", Courier, monospace;
-  color: #444;
-  line-height: 1.3;
-  animation: drift-up 90s linear infinite;
-  opacity: 0.65;
-  transition: opacity 0.5s ease;
-  border: 1px dashed red;
-  background: #fff0f0;
-
+  color: #333;
+  background: #f9f6f1;
+  padding: 0.5rem;
   width: 12rem;
   max-width: 14rem;
   white-space: normal;
   word-wrap: break-word;
   word-break: break-word;
+  line-height: 1.4;
+  opacity: 0.8;
   text-align: left;
-  animation: drift-waver 20s ease-in-out infinite;
-
+  animation: drift-waver 24s ease-in-out infinite;
 }
 
-.marginalia-note:hover {
-  opacity: 1;
-}
-
+/* === Animation Keyframes === */
 @keyframes drift-waver {
   0% {
     transform: translateY(0px) rotate(-2deg);
+    opacity: 0.75;
   }
   50% {
-    transform: translateY(-30px) rotate(1deg);
+    transform: translateY(-40px) rotate(2deg);
+    opacity: 0.9;
   }
   100% {
     transform: translateY(0px) rotate(-2deg);
+    opacity: 0.75;
   }
 }
 
