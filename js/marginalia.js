@@ -75,7 +75,7 @@ function injectMarginalia() {
   margin.className = "marginalia-layer";
   document.body.appendChild(margin);
 
-  const count = 40 + Math.floor(Math.random() * 10); // 40–50 footnotes
+  const count = 20 + Math.floor(Math.random() * 6); // 20–25 notes only
 
   for (let i = 0; i < count; i++) {
     const text = marginalia[Math.floor(Math.random() * marginalia.length)];
@@ -83,11 +83,23 @@ function injectMarginalia() {
     note.className = "marginalia-note";
     note.textContent = text;
 
-    note.style.top = `${Math.floor(Math.random() * 94) + 2}%`; // 2–96%
-    note.style.left = (i % 2 === 0) ? "-14rem" : "calc(100% + 2rem)";
-    note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+    // Randomize vertical placement
+    note.style.top = `${Math.floor(Math.random() * 92) + 4}%`; // top 4–96%
+
+    // Keep them mostly outside the readable area
+    const flip = Math.random();
+    if (flip < 0.45) {
+      note.style.left = "-13rem"; // left margin
+    } else if (flip > 0.55) {
+      note.style.left = "calc(100% + 2rem)"; // right margin
+    } else {
+      note.style.left = `${Math.floor(Math.random() * 40) + 30}%`; // rare: float in center 30–70%
+      note.style.opacity = "0.2"; // translucent
+    }
+
+    note.style.transform = `rotate(${Math.random() * 6 - 3}deg)`;
     note.style.position = "absolute";
-    note.style.zIndex = `${Math.floor(Math.random() * 3) + 8}`;
+    note.style.zIndex = `${Math.floor(Math.random() * 2) + 8}`; // 8–9
 
     margin.appendChild(note);
   }
