@@ -153,17 +153,17 @@ nav.nav a:hover {
 
 /* === Marginalia Notes === */
 .marginalia-layer {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
   pointer-events: none;
-  z-index: 10;
+  z-index: 2; /* Behind content */
 }
 
-.marginalia-note:hover {
-  opacity: 1;
+.index-card {
+  position: relative;
+  z-index: 5; /* Ensure content is above */
 }
 
 .marginalia-note {
@@ -179,12 +179,33 @@ nav.nav a:hover {
   word-wrap: break-word;
   word-break: break-word;
   line-height: 1.4;
-  opacity: 0.8;
+  opacity: 0.25; /* Subdued by default */
   text-align: left;
-  animation: drift-waver 24s ease-in-out infinite,
-           ghost-text 7s ease-in-out infinite,
-           glyph-glitch 11s ease-in-out infinite;
+  pointer-events: auto;
+  z-index: 2;
 
+  animation: 
+    drift-waver 24s ease-in-out infinite,
+    ghost-text 7s ease-in-out infinite,
+    glyph-glitch 11s ease-in-out infinite;
+  
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.marginalia-note:hover {
+  opacity: 0.9;
+  transform: scale(1.03) rotate(-1deg);
+  z-index: 5;
+}
+
+.marginalia-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
 }
 
 /* === Animation Keyframes === */
