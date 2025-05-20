@@ -60,3 +60,5 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+console.log("Marginalia script running...");
