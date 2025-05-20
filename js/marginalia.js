@@ -42,3 +42,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 90000);
 });
 
+// Drift animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes drift-up {
+    0% {
+      transform: translateY(0) rotate(-3deg);
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-20px) rotate(-3deg);
+      opacity: 0.85;
+    }
+  }
+  .marginalia-note {
+    animation: drift-up 90s linear infinite;
+  }
+`;
+document.head.appendChild(style);
