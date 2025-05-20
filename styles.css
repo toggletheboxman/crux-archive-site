@@ -185,9 +185,9 @@ nav.nav a:hover {
 .marginalia-note {
   font-family: "Courier New", Courier, monospace;
   font-size: 0.75rem;
-  color: #333;
+  color: #222;
   background: #f9f6f1;
-  padding: 0.5rem;
+  padding: 0.4rem 0.6rem;
   width: 12rem;
   max-width: 14rem;
   white-space: normal;
@@ -195,12 +195,15 @@ nav.nav a:hover {
   word-break: break-word;
   line-height: 1.4;
   text-align: left;
-  opacity: 0.8;
+  opacity: 0.75;
+
+  box-shadow: 0 0 4px rgba(0,0,0,0.04);
+  border-radius: 2px;
 
   animation: 
-    drift-waver 24s ease-in-out infinite,
-    ghost-text 7s ease-in-out infinite,
-    glyph-glitch 11s ease-in-out infinite;
+    drift-waver 36s ease-in-out infinite,
+    ghost-text 9s ease-in-out infinite,
+    glyph-glitch 15s ease-in-out infinite;
 }
 
 
