@@ -23,9 +23,10 @@ function injectMarginalia() {
     const note = document.createElement("div");
     note.className = "marginalia-note";
     note.textContent = text;
-    note.style.top = `${(i * 10) + 10}%`;
+    note.style.top = `${Math.floor(Math.random() * 85) + 5}%`; // Spread top: 5%–90%
     note.style.left = (i % 2 === 0) ? "1rem" : "calc(100% - 14rem)";
     note.style.position = "absolute";
+    note.style.zIndex = Math.floor(Math.random() * 3) + 8; // 8–10
     margin.appendChild(note);
   });
 }
