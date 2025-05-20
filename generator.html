@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marginalia Generator | Crux Archive Editions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      padding: 4rem 1rem;
+      transition: filter 0.4s ease, background 0.4s ease;
+    }
+    body.corrupt {
+      animation: ripple 0.7s infinite, flicker 0.2s steps(2, end) infinite;
+    }
+    body.critical-failure * {
+      visibility: hidden !important;
+    }
+    #recovery {
+      display: none;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1rem;
+      color: #ff4444;
+      margin-top: 2rem;
+      animation: fadein 1s ease-in;
+    }
+    @keyframes fadein {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    h1 {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      font-style: italic;
+      color: #888;
+      margin-bottom: 2rem;
+    }
+    .generator-box {
+      display: inline-block;
+      padding: 2rem;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      box-shadow: 0 0 10px rgba(255,255,255,0.08);
+      max-width: 600px;
+      width: 100%;
+    }
+    .marginalia-output {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #00ff99;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      min-height: 2em;
+    }
+    #journal {
+      margin-top: 2rem;
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+      font-size: 0.9rem;
+      color: #aaa;
+      border-top: 1px dashed #444;
+      padding-top: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #000;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #111;
+    }
+    .copy-btn {
+      margin-left: 1rem;
+      background: #002200;
+      color: #88ffcc;
+      border: 1px solid #88ffcc;
+    }
+    .copy-btn:hover {
+      background: #004400;
+    }
+    footer {
+      margin-top: 4rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .corrupt {
+      animation: shake 0.5s infinite, ripple 0.7s infinite, flicker 0.2s steps(2, end) infinite;
+      color: red;
+      background: rgba(255, 0, 0, 0.1);
+      filter: invert(1) hue-rotate(180deg);
+    }
+    .injected-false {
+      color: crimson;
+      font-style: italic;
+      text-shadow: 0 0 5px red;
+    }
+    .glyph-overlay {
+      content: "☡ ☍ ☖ ☒ ☢ ☠ ☯ ☤ ☬ ☸ ☮ ☦ ☓ ☽";
+      position: fixed;
+      font-size: 8rem;
+      color: rgba(255, 0, 0, 0.08);
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      pointer-events: none;
+      z-index: 9999;
+      animation: glyph-fade 1.5s ease-in-out forwards;
+    }
+    .scramble {
+      animation: scrambleText 0.3s steps(8, end) infinite alternate;
+    }
+    .glitch-font {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 0.05em;
+      animation: glitchFont 0.15s steps(2, end) infinite;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-1px); }
+      50% { transform: translateX(1px); }
+      75% { transform: translateX(-1px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes glyph-fade {
+      0% { opacity: 0; transform: scale(0.95); }
+      50% { opacity: 0.3; }
+      100% { opacity: 0; transform: scale(1.05); }
+    }
+    @keyframes scrambleText {
+      0% { opacity: 0.1; }
+      100% { opacity: 1; }
+    }
+    @keyframes glitchFont {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; transform: scaleX(1.02); }
+    }
+    @keyframes ripple {
+      0% { background-position: 0 0; }
+      50% { background-position: 2px 2px; }
+      100% { background-position: 0 0; }
+    }
+    @keyframes flicker {
+      0%, 100% { background-color: #0d0d0d; }
+      50% { background-color: #2a0000; }
+    }
+  
+    .unstable-active .generator-box {
+      box-shadow: 0 0 20px rgba(0, 255, 153, 0.5), 0 0 10px rgba(0, 255, 153, 0.3) inset;
+      border-color: #00ff99;
+    }
+    .rotating-glyph {
+      font-size: 3rem;
+      color: rgba(0, 255, 153, 0.4);
+      animation: spin 12s linear infinite;
+      margin-top: 1rem;
+    }
+    .lore-message {
+      color: rgba(255, 100, 100, 0.6);
+      font-style: italic;
+      margin-top: 0.3rem;
+      animation: flicker 3s infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Marginalia Generator</h1>
+  <div class="subtitle">Not officially supported by the Archive</div>
+  <div class="generator-box">
+    <div class="marginalia-output" id="output">&nbsp;</div>
+    <button onclick="generateNote()">Generate Annotation</button>
+    <button class="copy-btn" onclick="copyNote()">Copy</button>
+    <div id="journal"></div>
+  </div>
+  <div id="unstable-glyph-container"></div>
+  <button onclick="toggleUnstableMode()">☣ Unstable Mode</button>
+  <div id="recovery">System recovered successfully. Margin integrity nominal.</div>
+  <footer>
+    <p>This tool may not reflect the views of the Archive or its custodians.</p>
+    <p><a href="index.html" style="color:#999;">&larr; Return to Archive</a></p>
+  </footer>
+  <audio id="glitchSound" src="glitch.mp3" preload="auto"></audio>
+  <script>
+    const notes = [
+      "(Fragment 1): A fig, a coin, and a silence too practiced.",
+  "(Fragment 2): He turned toward nothing, like it might applaud.",
+  "(Fragment 3): My hands are clean. The ink is not.",
+  "(Fragment 4): This is not a confession. It is a record.",
+  "(Fragment 5): Gaius was laughing, but not with joy.",
+  "(Fragment 6): 'Until the record ends,' he said.",
+  "(Fragment 7): A door that was never a door.",
+  "(Fragment 8): The margins outgrew the page.",
+  "(Fragment 9): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 10): Each copy worse than the last.",
+  "(Fragment 11): Sejanus was mentioned, then scratched out.",
+  "(Fragment 12): He turned toward nothing, like it might applaud.",
+  "(Fragment 13): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 14): Water from the cistern tasted of copper and ink.",
+  "(Fragment 15): Gaius was laughing, but not with joy.",
+  "(Fragment 16): Filed without signature or date.",
+  "(Fragment 17): He turned toward nothing, like it might applaud.",
+  "(Fragment 18): She folded my robe into the shape of a bird.",
+  "(Fragment 19): The margins outgrew the page.",
+  "(Fragment 20): This was the only translation left.",
+  "(Fragment 21): Gaius was laughing, but not with joy.",
+  "(Fragment 22): Recovered fragment ends abruptly.",
+  "(Fragment 23): My hands are clean. The ink is not.",
+  "(Fragment 24): The steward’s voice cracked on 'again.'",
+  "(Fragment 25): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 26): Each copy worse than the last.",
+  "(Fragment 27): The script ends mid-glyph.",
+  "(Fragment 28): My hands are clean. The ink is not.",
+  "(Fragment 29): Even the figs smelled complicit.",
+  "(Fragment 30): Water from the cistern tasted of copper and ink.",
+  "(Fragment 31): The script ends mid-glyph.",
+  "(Fragment 32): A door that was never a door.",
+  "(Fragment 33): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 34): Words written backward, fluently.",
+  "(Fragment 35): A door that was never a door.",
+  "(Fragment 36): Echo returns stronger each time.",
+  "(Fragment 37): Echo returns stronger each time.",
+  "(Fragment 38): I remember the shape, not the name.",
+  "(Fragment 39): Sejanus was mentioned, then scratched out.",
+  "(Fragment 40): He was already gone when I arrived.",
+  "(Fragment 41): The margins outgrew the page.",
+  "(Fragment 42): A fig, a coin, and a silence too practiced.",
+  "(Fragment 43): Words written backward, fluently.",
+  "(Fragment 44): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 45): Observer detected.",
+  "(Fragment 46): The stylus was already warm.",
+  "(Fragment 47): She folded my robe into the shape of a bird.",
+  "(Fragment 48): The mirror caught me. Or I caught it.",
+  "(Fragment 49): Sejanus was mentioned, then scratched out.",
+  "(Fragment 50): Gaius was laughing, but not with joy.",
+  "(Fragment 51): Observer detected.",
+  "(Fragment 52): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 53): Gaius was laughing, but not with joy.",
+  "(Fragment 54): A door that was never a door.",
+  "(Fragment 55): Words written backward, fluently.",
+  "(Fragment 56): My hands are clean. The ink is not.",
+  "(Fragment 57): He was already gone when I arrived.",
+  "(Fragment 58): The stylus was already warm.",
+  "(Fragment 59): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 60): The stylus was already warm.",
+  "(Fragment 61): Echo returns stronger each time.",
+  "(Fragment 62): Water from the cistern tasted of copper and ink.",
+  "(Fragment 63): My hands are clean. The ink is not.",
+  "(Fragment 64): The mirror caught me. Or I caught it.",
+  "(Fragment 65): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 66): The margins outgrew the page.",
+  "(Fragment 67): This is not a confession. It is a record.",
+  "(Fragment 68): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 69): He was already gone when I arrived.",
+  "(Fragment 70): Words written backward, fluently.",
+  "(Fragment 71): My hands are clean. The ink is not.",
+  "(Fragment 72): Gaius was laughing, but not with joy.",
+  "(Fragment 73): Margin drift uncontained.",
+  "(Fragment 74): A new Marcus, same scar.",
+  "(Fragment 75): Gaius was laughing, but not with joy.",
+  "(Fragment 76): Sejanus was mentioned, then scratched out.",
+  "(Fragment 77): Margin drift uncontained.",
+  "(Fragment 78): He left the seal open, on purpose.",
+  "(Fragment 79): My hands are clean. The ink is not.",
+  "(Fragment 80): The mirror caught me. Or I caught it.",
+  "(Fragment 81): Water from the cistern tasted of copper and ink.",
+  "(Fragment 82): Margin drift uncontained.",
+  "(Fragment 83): Water from the cistern tasted of copper and ink.",
+  "(Fragment 84): Stanton refused to read it aloud.",
+  "(Fragment 85): He left the seal open, on purpose.",
+  "(Fragment 86): He was already gone when I arrived.",
+  "(Fragment 87): Even the figs smelled complicit.",
+  "(Fragment 88): I remember the shape, not the name.",
+  "(Fragment 89): 'Until the record ends,' he said.",
+  "(Fragment 90): This is not a confession. It is a record.",
+  "(Fragment 91): The margins outgrew the page.",
+  "(Fragment 92): I remember the shape, not the name.",
+  "(Fragment 93): Each copy worse than the last.",
+  "(Fragment 94): He left the seal open, on purpose.",
+  "(Fragment 95): The stylus was already warm.",
+  "(Fragment 96): Gaius was laughing, but not with joy.",
+  "(Fragment 97): 'Until the record ends,' he said.",
+  "(Fragment 98): Filed without signature or date.",
+  "(Fragment 99): Stanton refused to read it aloud.",
+  "(Fragment 100): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 101): A new Marcus, same scar.",
+  "(Fragment 102): A fig, a coin, and a silence too practiced.",
+  "(Fragment 103): Even the figs smelled complicit.",
+  "(Fragment 104): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 105): Each copy worse than the last.",
+  "(Fragment 106): The mirror caught me. Or I caught it.",
+  "(Fragment 107): Words written backward, fluently.",
+  "(Fragment 108): Words written backward, fluently.",
+  "(Fragment 109): He was already gone when I arrived.",
+  "(Fragment 110): It smelled like seawater and ash.",
+  "(Fragment 111): I remember the shape, not the name.",
+  "(Fragment 112): The steward’s voice cracked on 'again.'",
+  "(Fragment 113): A fig, a coin, and a silence too practiced.",
+  "(Fragment 114): The margins outgrew the page.",
+  "(Fragment 115): My hands are clean. The ink is not.",
+  "(Fragment 116): The script ends mid-glyph.",
+  "(Fragment 117): A fig, a coin, and a silence too practiced.",
+  "(Fragment 118): Observer detected.",
+  "(Fragment 119): Each copy worse than the last.",
+  "(Fragment 120): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 121): He was already gone when I arrived.",
+  "(Fragment 122): The steward’s voice cracked on 'again.'",
+  "(Fragment 123): I remember the shape, not the name.",
+  "(Fragment 124): Filed without signature or date.",
+  "(Fragment 125): No one speaks his name here.",
+  "(Fragment 126): Filed without signature or date.",
+  "(Fragment 127): A door that was never a door.",
+  "(Fragment 128): There is no Entry XXXIX.",
+  "(Fragment 129): Filed without signature or date.",
+  "(Fragment 130): She folded my robe into the shape of a bird.",
+  "(Fragment 131): Even the figs smelled complicit.",
+  "(Fragment 132): The stylus was already warm.",
+  "(Fragment 133): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 134): The margins outgrew the page.",
+  "(Fragment 135): It smelled like seawater and ash.",
+  "(Fragment 136): The steward’s voice cracked on 'again.'",
+  "(Fragment 137): Margin drift uncontained.",
+  "(Fragment 138): Stanton refused to read it aloud.",
+  "(Fragment 139): He turned toward nothing, like it might applaud.",
+  "(Fragment 140): A fig, a coin, and a silence too practiced.",
+  "(Fragment 141): The stylus was already warm.",
+  "(Fragment 142): There is no Entry XXXIX.",
+  "(Fragment 143): This is not a confession. It is a record.",
+  "(Fragment 144): A new Marcus, same scar.",
+  "(Fragment 145): This is not a confession. It is a record.",
+  "(Fragment 146): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 147): ‘You should not have copied it,’ the boy said.",
+  "(Fragment 148): Stanton refused to read it aloud.",
+  "(Fragment 149): The mirror caught me. Or I caught it.",
+  "(Fragment 150): The margins outgrew the page.",
+  "(Fragment 151): 'Until the record ends,' he said.",
+  "(Fragment 152): 'Until the record ends,' he said.",
+  "(Fragment 153): Annotated in someone else's blood.",
+  "(Fragment 154): 'The ledger was written in reverse,' she whispered.",
+  "(Fragment 155): I remember the shape, not the name.",
+  "(Fragment 156): It smelled like seawater and ash.",
+  "(Fragment 157): Each copy worse than the last.",
+  "(Fragment 158): Water from the cistern tasted of copper and ink.",
+  "(Fragment 159): The margins outgrew the page.",
+  "(Fragment 160): She folded my robe into the shape of a bird.",
+  "(Fragment 161): There is no Entry XXXIX.",
+  "(Fragment 162): He left the seal open, on purpose.",
+  "(Fragment 163): The stylus was already warm.",
+  "(Fragment 164): Recovered fragment ends abruptly.",
+  "(Fragment 165): It smelled like seawater and ash.",
+  "(Fragment 166): Recovered fragment ends abruptly.",
+  "(Fragment 167): A fig, a coin, and a silence too practiced.",
+  "(Fragment 168): This is not a confession. It is a record.",
+  "(Fragment 169): Gaius was laughing, but not with joy.",
+  "(Fragment 170): The mirror caught me. Or I caught it.",
+  "(Fragment 171): The script ends mid-glyph.",
+  "(Fragment 172): He turned toward nothing, like it might applaud.",
+  "(Fragment 173): Gaius was laughing, but not with joy.",
+  "(Fragment 174): Gaius was laughing, but not with joy.",
+  "(Fragment 175): The steward’s voice cracked on 'again.'",
+  "(Fragment 176): The mirror caught me. Or I caught it.",
+  "(Fragment 177): A new Marcus, same scar.",
+  "(Fragment 178): Gaius was laughing, but not with joy.",
+  "(Fragment 179): The mirror caught me. Or I caught it.",
+  "(Fragment 180): Sejanus was mentioned, then scratched out.",
+  "(Fragment 181): The script ends mid-glyph.",
+  "(Fragment 182): The mirror caught me. Or I caught it.",
+  "(Fragment 183): Filed without signature or date.",
+  "(Fragment 184): This is not a confession. It is a record.",
+  "(Fragment 185): My hands are clean. The ink is not.",
+  "(Fragment 186): Stanton refused to read it aloud.",
+  "(Fragment 187): Water from the cistern tasted of copper and ink.",
+  "(Fragment 188): The margins outgrew the page.",
+  "(Fragment 189): 'Until the record ends,' he said.",
+  "(Fragment 190): Annotated in someone else's blood.",
+  "(Fragment 191): This is not a confession. It is a record.",
+  "(Fragment 192): Annotated in someone else's blood.",
+  "(Fragment 193): This was the only translation left.",
+  "(Fragment 194): She folded my robe into the shape of a bird.",
+  "(Fragment 195): A door that was never a door.",
+  "(Fragment 196): A door that was never a door.",
+  "(Fragment 197): Each copy worse than the last.",
+  "(Fragment 198): Echo returns stronger each time.",
+  "(Fragment 199): Each copy worse than the last.",
+  "(Fragment 200): This was the only translation left."
+    ];
+    const corruptionChance = 0.08;
+    const criticalFailureChance = 0.02;
+    let overrideEnabled = false;
+    function generateNote() {
+      const note = notes[Math.floor(Math.random() * notes.length)];
+      const output = document.getElementById("output");
+      const journal = document.getElementById("journal");
+      const audio = document.getElementById("glitchSound");
+      const recovery = document.getElementById("recovery");
+      output.className = "marginalia-output";
+      output.style.opacity = 0;
+      setTimeout(() => {
+        output.textContent = note;
+        output.style.opacity = 1;
+        output.classList.remove("burnout");
+        void output.offsetWidth;
+        output.classList.add("burnout");
+        const newLog = document.createElement("div");
+        newLog.textContent = note;
+        journal.prepend(newLog);
+        const isCorrupt = Math.random() < corruptionChance;
+        const isCritical = Math.random() < criticalFailureChance;
+        if (!overrideEnabled && isCritical) {
+          document.body.classList.add("critical-failure");
+          setTimeout(() => {
+            document.body.classList.remove("critical-failure");
+            recovery.style.display = "block";
+            setTimeout(() => recovery.style.display = "none", 4000);
+          }, 3000);
+        } else if (isCorrupt) {
+          document.body.classList.add("corrupt");
+          const injected = document.createElement("div");
+          injected.className = "injected-false glitch-font";
+          injected.textContent = "(System): Annotation checksum failed. Recompiling margin...";
+          journal.prepend(injected);
+          const glyph = document.createElement("div");
+          glyph.className = "glyph-overlay";
+          glyph.textContent = "☡ ☍ ☖ ☒ ☢ ☠ ☯ ☤ ☬ ☸ ☮ ☦ ☓ ☽";
+          document.body.appendChild(glyph);
+          const scrambleTargets = journal.querySelectorAll("div");
+          scrambleTargets.forEach((el, i) => {
+            if (i < 3) el.classList.add("scramble");
+          });
+          if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+          }
+          journal.scrollTop = 0;
+          setTimeout(() => {
+            document.body.classList.remove("corrupt");
+            if (glyph) glyph.remove();
+            scrambleTargets.forEach(el => el.classList.remove("scramble"));
+          }, 1500);
+        }
+      }, 150);
+    }
+    function copyNote() {
+      const output = document.getElementById("output").textContent;
+      if (!output.trim()) return;
+      navigator.clipboard.writeText(output).then(() => {
+        alert("Annotation copied to clipboard.");
+      });
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "~") {
+        overrideEnabled = !overrideEnabled;
+        alert("Override mode " + (overrideEnabled ? "ENABLED" : "DISABLED"));
+      }
+    });
+  </script>
+  <style>
+    @keyframes burnout {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0.1; }
+    }
+    .burnout {
+      animation: burnout 18s ease-in-out forwards;
+    }
+  
+    .unstable-active .generator-box {
+      box-shadow: 0 0 20px rgba(0, 255, 153, 0.5), 0 0 10px rgba(0, 255, 153, 0.3) inset;
+      border-color: #00ff99;
+    }
+    .rotating-glyph {
+      font-size: 3rem;
+      color: rgba(0, 255, 153, 0.4);
+      animation: spin 12s linear infinite;
+      margin-top: 1rem;
+    }
+    .lore-message {
+      color: rgba(255, 100, 100, 0.6);
+      font-style: italic;
+      margin-top: 0.3rem;
+      animation: flicker 3s infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+  </style>
+
+<script>
+  const unstableGlyphs = ["☬", "☢", "☠", "☤", "☯", "☸", "☣", "☦", "☡", "☍", "☖", "☒", "☽"];
+  const unstableMessages = [
+    "Margin drift: uncontrolled",
+    "Drift escalating",
+    "Observer detected",
+    "Checksum unstable",
+    "Playback anomaly confirmed"
+  ];
+  let unstableInterval;
+
+  function toggleUnstableMode() {
+    document.body.classList.toggle("unstable-active");
+    const container = document.getElementById("unstable-glyph-container");
+    container.innerHTML = "";
+
+    if (document.body.classList.contains("unstable-active")) {
+      const glyph = document.createElement("div");
+      glyph.className = "rotating-glyph";
+      glyph.textContent = unstableGlyphs[Math.floor(Math.random() * unstableGlyphs.length)];
+
+      const message = document.createElement("div");
+      message.className = "lore-message";
+      message.textContent = unstableMessages[0];
+
+      container.appendChild(glyph);
+      container.appendChild(message);
+
+      unstableInterval = setInterval(() => {
+        message.textContent = unstableMessages[Math.floor(Math.random() * unstableMessages.length)];
+      }, 12000); // change every 12s
+
+    } else {
+      clearInterval(unstableInterval);
+    }
+  }
+</script>
+
+</body>
+</html>
