@@ -1,1 +1,262 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marginalia Generator | Crux Archive Editions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      padding: 4rem 1rem;
+      transition: filter 0.4s ease, background 0.4s ease;
+    }
+    body.corrupt {
+      animation: ripple 0.7s infinite, flicker 0.2s steps(2, end) infinite;
+    }
+    body.critical-failure * {
+      visibility: hidden !important;
+    }
+    #recovery {
+      display: none;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1rem;
+      color: #ff4444;
+      margin-top: 2rem;
+      animation: fadein 1s ease-in;
+    }
+    @keyframes fadein {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    h1 {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      font-style: italic;
+      color: #888;
+      margin-bottom: 2rem;
+    }
+    .generator-box {
+      display: inline-block;
+      padding: 2rem;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      box-shadow: 0 0 10px rgba(255,255,255,0.08);
+      max-width: 600px;
+      width: 100%;
+    }
+    .marginalia-output {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #00ff99;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      min-height: 2em;
+    }
+    #journal {
+      margin-top: 2rem;
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+      font-size: 0.9rem;
+      color: #aaa;
+      border-top: 1px dashed #444;
+      padding-top: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #000;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #111;
+    }
+    .copy-btn {
+      margin-left: 1rem;
+      background: #002200;
+      color: #88ffcc;
+      border: 1px solid #88ffcc;
+    }
+    .copy-btn:hover {
+      background: #004400;
+    }
+    footer {
+      margin-top: 4rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .corrupt {
+      animation: shake 0.5s infinite, ripple 0.7s infinite, flicker 0.2s steps(2, end) infinite;
+      color: red;
+      background: rgba(255, 0, 0, 0.1);
+      filter: invert(1) hue-rotate(180deg);
+    }
+    .injected-false {
+      color: crimson;
+      font-style: italic;
+      text-shadow: 0 0 5px red;
+    }
+    .glyph-overlay {
+      content: "☡ ☍ ☖ ☒ ☢ ☠ ☯ ☤ ☬ ☸ ☮ ☦ ☓ ☽";
+      position: fixed;
+      font-size: 8rem;
+      color: rgba(255, 0, 0, 0.08);
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      pointer-events: none;
+      z-index: 9999;
+      animation: glyph-fade 1.5s ease-in-out forwards;
+    }
+    .scramble {
+      animation: scrambleText 0.3s steps(8, end) infinite alternate;
+    }
+    .glitch-font {
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 0.05em;
+      animation: glitchFont 0.15s steps(2, end) infinite;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-1px); }
+      50% { transform: translateX(1px); }
+      75% { transform: translateX(-1px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes glyph-fade {
+      0% { opacity: 0; transform: scale(0.95); }
+      50% { opacity: 0.3; }
+      100% { opacity: 0; transform: scale(1.05); }
+    }
+    @keyframes scrambleText {
+      0% { opacity: 0.1; }
+      100% { opacity: 1; }
+    }
+    @keyframes glitchFont {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; transform: scaleX(1.02); }
+    }
+    @keyframes ripple {
+      0% { background-position: 0 0; }
+      50% { background-position: 2px 2px; }
+      100% { background-position: 0 0; }
+    }
+    @keyframes flicker {
+      0%, 100% { background-color: #0d0d0d; }
+      50% { background-color: #2a0000; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Marginalia Generator</h1>
+  <div class="subtitle">Not officially supported by the Archive</div>
+  <div class="generator-box">
+    <div class="marginalia-output" id="output">&nbsp;</div>
+    <button onclick="generateNote()">Generate Annotation</button>
+    <button class="copy-btn" onclick="copyNote()">Copy</button>
+    <div id="journal"></div>
+  </div>
+  <div id="recovery">System recovered successfully. Margin integrity nominal.</div>
+  <footer>
+    <p>This tool may not reflect the views of the Archive or its custodians.</p>
+    <p><a href="index.html" style="color:#999;">&larr; Return to Archive</a></p>
+  </footer>
+  <audio id="glitchSound" src="glitch.mp3" preload="auto"></audio>
+  <script>
+    const notes = [];
+    for (let i = 0; i < 100; i++) {
+      notes.push(`(Fragment ${i + 1}): Simulated annotation artifact.`);
+    }
+    const corruptionChance = 0.08;
+    const criticalFailureChance = 0.02;
+    let overrideEnabled = false;
+    function generateNote() {
+      const note = notes[Math.floor(Math.random() * notes.length)];
+      const output = document.getElementById("output");
+      const journal = document.getElementById("journal");
+      const audio = document.getElementById("glitchSound");
+      const recovery = document.getElementById("recovery");
+      output.className = "marginalia-output";
+      output.style.opacity = 0;
+      setTimeout(() => {
+        output.textContent = note;
+        output.style.opacity = 1;
+        output.classList.remove("burnout");
+        void output.offsetWidth;
+        output.classList.add("burnout");
+        const newLog = document.createElement("div");
+        newLog.textContent = note;
+        journal.prepend(newLog);
+        const isCorrupt = Math.random() < corruptionChance;
+        const isCritical = Math.random() < criticalFailureChance;
+        if (!overrideEnabled && isCritical) {
+          document.body.classList.add("critical-failure");
+          setTimeout(() => {
+            document.body.classList.remove("critical-failure");
+            recovery.style.display = "block";
+            setTimeout(() => recovery.style.display = "none", 4000);
+          }, 3000);
+        } else if (isCorrupt) {
+          document.body.classList.add("corrupt");
+          const injected = document.createElement("div");
+          injected.className = "injected-false glitch-font";
+          injected.textContent = "(System): Annotation checksum failed. Recompiling margin...";
+          journal.prepend(injected);
+          const glyph = document.createElement("div");
+          glyph.className = "glyph-overlay";
+          glyph.textContent = "☡ ☍ ☖ ☒ ☢ ☠ ☯ ☤ ☬ ☸ ☮ ☦ ☓ ☽";
+          document.body.appendChild(glyph);
+          const scrambleTargets = journal.querySelectorAll("div");
+          scrambleTargets.forEach((el, i) => {
+            if (i < 3) el.classList.add("scramble");
+          });
+          if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+          }
+          journal.scrollTop = 0;
+          setTimeout(() => {
+            document.body.classList.remove("corrupt");
+            if (glyph) glyph.remove();
+            scrambleTargets.forEach(el => el.classList.remove("scramble"));
+          }, 1500);
+        }
+      }, 150);
+    }
+    function copyNote() {
+      const output = document.getElementById("output").textContent;
+      if (!output.trim()) return;
+      navigator.clipboard.writeText(output).then(() => {
+        alert("Annotation copied to clipboard.");
+      });
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "~") {
+        overrideEnabled = !overrideEnabled;
+        alert("Override mode " + (overrideEnabled ? "ENABLED" : "DISABLED"));
+      }
+    });
+  </script>
+  <style>
+    @keyframes burnout {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0.1; }
+    }
+    .burnout {
+      animation: burnout 18s ease-in-out forwards;
+    }
+  </style>
+</body>
+</html>
