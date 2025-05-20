@@ -174,10 +174,11 @@ nav.nav a:hover {
 
 /* === Marginalia Notes === */
 .marginalia-layer {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  height: 100vh;
   pointer-events: none;
   z-index: 2;
 }
