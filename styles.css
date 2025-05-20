@@ -180,6 +180,8 @@ nav.nav a:hover {
   word-wrap: break-word;
   word-break: break-word;
   text-align: left;
+  animation: drift-up 90s linear infinite;
+
 }
 
 .marginalia-note:hover {
@@ -196,3 +198,4 @@ nav.nav a:hover {
     opacity: 0.85;
   }
 }
+
