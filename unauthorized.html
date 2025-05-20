@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unauthorized Viewing | Crux Archive Editions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #0c0c0c;
+      color: #e00;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      padding: 4rem 2rem;
+      animation: pulse 12s ease-in-out infinite alternate;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #ff3333;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 5px #600;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #ffcccc;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .glyph-float {
+      font-size: 5rem;
+      color: rgba(255, 0, 0, 0.05);
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(5deg);
+      pointer-events: none;
+      animation: fadeGlyph 8s ease-in-out infinite;
+    }
+
+    .lockout {
+      color: #ffaaaa;
+      font-style: normal;
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .recovered {
+      color: #aaffaa;
+      font-style: italic;
+      display: none;
+    }
+
+    @keyframes pulse {
+      0% { background-color: #0c0c0c; }
+      50% { background-color: #110000; }
+      100% { background-color: #0c0c0c; }
+    }
+
+    @keyframes fadeGlyph {
+      0%, 100% { opacity: 0.02; }
+      50% { opacity: 0.08; }
+    }
+
+    a {
+      color: #ffaaaa;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="glyph-float">☒</div>
+  <h1>⚠ Unauthorized Viewing</h1>
+  <p id="warning">This entry has been sealed by the Archive Custodians.</p>
+  <p>Attempts to access restricted content are monitored.</p>
+  <p><em>Directive 7.3.4 — Violation code: DRIFT</em></p>
+
+  <p class="lockout" id="lockout-msg">System Lockout Engaged. Retry in 90 seconds.</p>
+  <p class="recovered" id="recovered-msg">Access Window Reopened: <a href="entry-x0412.html">[ OPEN FRAGMENT ]</a></p>
+
+  <p><a href="archive.html">&larr; Return to Inventory</a></p>
+
+  <script>
+    let attemptCount = localStorage.getItem("unauthAttempts") || 0;
+    attemptCount++;
+    localStorage.setItem("unauthAttempts", attemptCount);
+
+    const lockoutMsg = document.getElementById("lockout-msg");
+    const recoveredMsg = document.getElementById("recovered-msg");
+
+    if (attemptCount >= 4 && attemptCount % 5 !== 0) {
+      document.getElementById("warning").textContent = "🔒 Access Temporarily Suspended.";
+      lockoutMsg.style.display = "block";
+    }
+
+    // Rare access recovery every 5th attempt
+    if (attemptCount > 0 && attemptCount % 5 === 0) {
+      document.getElementById("warning").textContent = "⚠ Archive Interference Detected.";
+      recoveredMsg.style.display = "block";
+    }
+  </script>
+</body>
+</html>
