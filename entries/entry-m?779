@@ -6,22 +6,38 @@
   <title>CAE-M?779 | Transline Interruption</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
+    body {
+      background: url("../binary-sea-stamp.png") center center no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      background-blend-mode: luminosity;
+    }
+
     .index-card {
       text-align: right;
       transform: rotate(0.15deg);
       filter: contrast(0.98) brightness(1.03);
+      background-color: rgba(255, 255, 255, 0.82);
+      padding: 2rem;
+      border-radius: 4px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      z-index: 3;
     }
+
     .glitch-line {
       font-family: "Courier New", Courier, monospace;
       letter-spacing: 0.01em;
       opacity: 0.8;
       animation: ghost-text 12s ease-in-out infinite;
     }
+
     .glitch-line span {
       opacity: 0.5;
       font-style: italic;
       margin-left: 1rem;
     }
+
     .arabic {
       direction: rtl;
       font-family: 'Amiri', serif;
@@ -30,10 +46,20 @@
       text-align: right;
       margin-top: 1rem;
     }
+
     .header-anomaly {
       text-decoration: line-through;
       opacity: 0.4;
       letter-spacing: 0.05em;
+    }
+
+    .marginalia-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: 2;
     }
   </style>
 </head>
@@ -82,6 +108,7 @@
     <div class="speculum" style="left: 1rem; right: auto;">specvlvm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reflectit</div>
   </footer>
 
+  <!-- Floating marginalia -->
   <script src="../js/marginalia.js"></script>
 </body>
 </html>
