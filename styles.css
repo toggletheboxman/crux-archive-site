@@ -249,3 +249,21 @@ nav.nav a:hover {
   50% { opacity: 0.18; filter: brightness(0.85); }
 }
 
+.corner-seal {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 120px;
+  opacity: 0.04;
+  animation: flicker-seal 3s infinite;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes flicker-seal {
+  0%, 100% { opacity: 0.02; transform: scale(1); }
+  10% { opacity: 0.05; }
+  25% { opacity: 0.08; transform: scale(1.01); }
+  50% { opacity: 0.03; transform: scale(0.99); }
+  75% { opacity: 0.06; }
+}
