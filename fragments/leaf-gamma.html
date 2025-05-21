@@ -73,5 +73,31 @@
     Last accessioned by Archive custodian under provisional ID: gamma-trace. <br>
     Echo timestamp: 04:13:17 (loop unstable).
   </div>
+  <audio id="hoverHiss" src="../assets/hiss.mp3" preload="auto"></audio>
+<script>
+  const hissAudio = document.getElementById("hoverHiss");
+  const whispers = document.querySelector(".whispers");
+
+  whispers.addEventListener("mouseenter", () => {
+    hissAudio.volume = 0.15;
+    hissAudio.loop = true;
+    hissAudio.play();
+  });
+
+  whispers.addEventListener("mouseleave", () => {
+    hissAudio.pause();
+    hissAudio.currentTime = 0;
+  });
+  setTimeout(() => {
+  document.body.classList.add("loop-instability");
+
+  const deep = document.getElementById("deepWhisper");
+  if (deep) {
+    deep.volume = 0.2;
+    deep.play();
+  }
+}, 16000);
+</script>
+  <audio id="deepWhisper" src="../assets/layered-whispers.mp3" preload="auto"></audio>
 </body>
 </html>
