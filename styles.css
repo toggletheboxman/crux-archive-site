@@ -212,5 +212,24 @@ nav.nav a:hover {
     ghost-text 9s ease-in-out infinite,
     glyph-glitch 15s ease-in-out infinite;
 }
+.back-link {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin-top: 4rem;
+  cursor: pointer;
+  animation: flicker 3s infinite;
+  text-shadow: 0 0 3px #333;
+}
+.back-link:hover {
+  color: #ffcc88;
+  text-shadow: 0 0 6px #ffcc88;
+}
+@keyframes flicker {
+  0%, 100% { opacity: 0.85; }
+  40% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+  60% { opacity: 0.4; }
+}
 
 
