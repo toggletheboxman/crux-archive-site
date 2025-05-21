@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="la">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fragmentum Vetus — De Vita Tiberii</title>
+  <style>
+    body {
+      background: url('assets/parchment-texture.jpg') center center fixed;
+      background-size: cover;
+      font-family: 'Garamond', serif;
+      color: #2c1f0f;
+      padding: 4rem 2rem;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .latin {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    .note {
+      font-style: italic;
+      color: darkred;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+
+    .translation {
+      background: rgba(255, 255, 240, 0.85);
+      border-left: 4px solid #888;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    #bust {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 160px;
+      opacity: 0.05;
+      animation: flickerBust 12s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    #spqr {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      width: 100px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: #886644;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes flickerBust {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.18; transform: scale(1.01); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Fragmentum Vetus — <em>De Vita Tiberii</em> (Excerptum Non-Indicatum)</h1>
+
+  <img id="spqr" src="assets/spqr-eagle-faint.png" alt="SPQR watermark">
+  <img id="bust" src="assets/tiberius-bust-flicker.png" alt="Flickering bust of Tiberius">
+
+  <section class="latin">
+    <p><strong>Caput XLIII.</strong> Non temere unquam ante principatum auspicatus est amicitias, sed in dies et ex tempore agitabat. Cuius rei et ipsum et senatum saepe paenituit.</p>
+    
+    <div class="note">[Marginal note: “This clause differs from Loeb ed. — was it redacted posthumously?”]</div>
+
+    <p><strong>Caput XLIV.</strong> Nihil aeque in eo laudatum est quam patientia; ferre convicia et infamias quasi adversa tempestatis consueverat. Sed re vera tacitus horrebat.</p>
+
+    <div class="note">[Fragment gloss: “Stanton notes this line absent in Vatican MS 307.”]</div>
+
+    <p><strong>Caput XLV.</strong> In insula Capreis moratus est annos postremos, seclusus in specu rotundo, in quo “sybillae oracula” vocari instituit.</p>
+
+    <div class="note">[Calvert’s copy notes: “Subterranean vault appears here for first time.”]</div>
+
+    <details class="translation">
+      <summary><strong>↯ Stanton's Translation (Unofficial)</strong></summary>
+      <p>"He withdrew to the cave on the isle, calling it the Sibyl’s Mouth. No one knew what he heard there, but his margins were full of stars and curses."</p>
+      <p><em>Note: Stanton claimed this translation was sourced from an earlier recension found in the Exeter ledger, folio 9B.</em></p>
+    </details>
+  </section>
+
+  <footer>
+    <p><a href="archive.html">&larr; Return to Archive</a></p>
+  </footer>
+</body>
+</html>
