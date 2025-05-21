@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Not Found | Crux Archive Editions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      padding: 4rem 1rem;
+      overflow: hidden;
+    }
+    .glitch {
+      font-size: 1.25rem;
+      color: #ff4444;
+      font-style: italic;
+      animation: flicker 2s infinite;
+    }
+    .glyph-overlay {
+      content: "";
+      position: fixed;
+      font-size: 8rem;
+      color: rgba(255, 0, 0, 0.04);
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-8deg);
+      pointer-events: none;
+      z-index: 0;
+      animation: pulse 6s ease-in-out infinite;
+    }
+    a.return {
+      display: inline-block;
+      margin-top: 2rem;
+      color: #888;
+      text-decoration: none;
+      font-style: italic;
+      transition: color 0.3s;
+    }
+    a.return:hover {
+      color: #00ff99;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.95; }
+      45% { opacity: 0.6; }
+      48% { opacity: 0.8; }
+      50% { opacity: 0.3; }
+      52% { opacity: 0.9; }
+      70% { opacity: 0.5; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.02); }
+    }
+  </style>
+</head>
+<body>
+  <div class="glyph-overlay">☡ ☍ ☖ ☒ ☢ ☠ ☯ ☤ ☬ ☸ ☮ ☦ ☓ ☽</div>
+  <h1 class="glitch">[Record Not Located]</h1>
+  <p>This file is not stored in the Archive.<br>
+  Or else it has been marked for omission.</p>
+  <p><em>If you believe this is in error, consider the fig count.</em></p>
+
+  <a class="return" href="/archive.html">&larr; Initiate Archive Recovery</a>
+
+  <footer style="margin-top: 4rem; font-size: 0.85rem; color: #444;">
+    Crux Archive Editions<br>
+    memoriae servandae causa
+  </footer>
+
+  <!-- Archive Version 1.0 – May 2025 – Fragmentum Vetus seed 0x7d1 -->
+</body>
+</html>
