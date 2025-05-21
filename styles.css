@@ -232,4 +232,20 @@ nav.nav a:hover {
   60% { opacity: 0.4; }
 }
 
+.bust-overlay {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 180px;
+  opacity: 0.15; /* Lowered from 0.25 */
+  filter: brightness(0.8); /* Slightly darker */
+  animation: bust-flicker 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 50;
+}
+
+@keyframes bust-flicker {
+  0%, 100% { opacity: 0.1; filter: brightness(0.75); }
+  50% { opacity: 0.18; filter: brightness(0.85); }
+}
 
